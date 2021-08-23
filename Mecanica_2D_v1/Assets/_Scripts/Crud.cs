@@ -27,7 +27,11 @@ public class Crud : MonoBehaviour
                 number++;
                 GameObject tmp_item = Instantiate(item,itemParent.transform);
                 tmp_item.name = i.ToString();
-                tmp_item.transform.GetChild(0).GetComponent<Text>().text = number.ToString();
+
+                // ESCREVE NO CAMPO ID PARA PEGAR NO vetorRelacionamento DEPOIS
+                tmp_item.transform.GetChild(0).GetComponent<Text>().name = number.ToString();
+                tmp_item.transform.GetChild(0).GetComponent<Text>().text = number.ToString();            
+
                 tmp_item.transform.GetChild(1).GetComponent<Text>().text = vetorEmocao;
             }
 
