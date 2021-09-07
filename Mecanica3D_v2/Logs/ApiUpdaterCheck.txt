@@ -88,3 +88,33 @@ C# parse time         : 200ms
 candidates check time : 31ms
 console write time    : 0ms
 
+[api-updater (non-obsolete-error-filter)] 07/09/2021 18:44:16 : Starting /home/foroni-ubuntu/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 508,12ms
+moved types parse time: 51ms
+candidates parse time : 1ms
+C# parse time         : 471ms
+candidates check time : 34ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 07/09/2021 18:49:44 : Starting /home/foroni-ubuntu/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 93,494ms
+moved types parse time: 107ms
+candidates parse time : 1ms
+C# parse time         : 232ms
+candidates check time : 32ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 07/09/2021 18:57:07 : Starting /home/foroni-ubuntu/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 93,035ms
+moved types parse time: 105ms
+candidates parse time : 3ms
+C# parse time         : 415ms
+candidates check time : 81ms
+console write time    : 0ms
+

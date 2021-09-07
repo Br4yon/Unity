@@ -9,10 +9,10 @@ public class CrudRelacionaNPC : MonoBehaviour
     public GameObject item, form;
 
     void Start(){
-        consultaNpcs();        
+        consultarNpcs();        
     }
 
-    public void consultaNpcs(){
+    public void consultarNpcs(){
         /** CONSULTA NPCs **/
         int count_npcs = PlayerPrefs.GetInt("contador");       
         int number_npcs = 0;
@@ -34,6 +34,78 @@ public class CrudRelacionaNPC : MonoBehaviour
         }
     }
 
+    /** CADASTRAR RELACIONAMENTO E EMOÇÕES DOS NPCS **/
+    public void cadastrarRMNpcs(){
+
+        /** form=ModalRelacionamento/child(2)=Relacionamento/child(1)=NPCaRelacionar/Viewport/Content **/
+        Transform npcArelacionar = form.transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0);
+        int countNPCaRelacionar = npcArelacionar.childCount;
+        /** form=ModalRelacionamento/child(2)=Relacionamento/child(2)=NPCparaRelacionar/Viewport/Content **/
+        Transform npcPARArelacionar = form.transform.GetChild(2).GetChild(2).GetChild(0).GetChild(0);
+        int countNPCparaRelacionar = npcPARArelacionar.childCount;
+
+        /** INSTANCIA QUE GUARDA AS EMOÇÕES **/
+        Transform vEmocoes = form.transform.GetChild(3);
+
+        // ClassEmocao vetorEmocao = new ClassEmocao();
+        // /** ADICIONA OS VALORES NA CLASS **/
+        // vetorEmocao.raiva = 10;
+        // vetorEmocao.alegria = 10;
+        // /** ESCREVE COMO STRING A CLASS JÁ EM JSON **/
+        // string teste = vetorEmocao.SetJsonEmocoes();
+        // // Debug.Log( teste );    
+        // /** PARA DESCONVERTER É REESCRITO UMA NOVA VARIAVEL DA CLASS COM A STRING DO JSON **/
+        // ClassEmocao tE = new ClassEmocao();  
+        // JsonUtility.FromJsonOverwrite(teste, tE); 
+        // // Debug.Log( tE.raiva );
+
+        /** PERCORRER OS NPCS A RELACIONAR **/
+        for (int i = 0; i < countNPCaRelacionar; i++)
+        {
+            /** VERIFICA SE O NPC DA VEZ ESTA MARCADO **/
+            if(npcArelacionar.GetChild(i).GetComponent<Toggle>().isOn == true)
+            {
+
+                /** PEGA O NOME DO NPCaRELACIONAR **/
+                Debug.Log(npcArelacionar.GetChild(i).name);
+
+                for (int j = 0; j < countNPCparaRelacionar; j++)
+                {
+
+                    /** VERIFICA SE O NPC DA VEZ ESTA MARCADO **/
+                    if(npcPARArelacionar.GetChild(j).GetComponent<Toggle>().isOn == true)
+                    {
+
+                        /** PEGA O NOME DO NPCparaRELACIONAR **/
+                        Debug.Log(npcPARArelacionar.GetChild(j).name);
+                        
+                        // for(int k=0; k < 6; k++)
+                        // {
+
+                        //     vEmocoes.GetChild(0).GetChild(k)
+
+                        // }
+
+                    }
+
+                }
+
+            }          
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 

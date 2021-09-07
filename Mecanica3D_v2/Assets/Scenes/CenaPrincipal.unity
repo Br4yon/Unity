@@ -9353,9 +9353,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1617033752}
-        m_TargetAssemblyTypeName: Crud, Assembly-CSharp
-        m_MethodName: create
+      - m_Target: {fileID: 423751486}
+        m_TargetAssemblyTypeName: CrudRelacionaNPC, Assembly-CSharp
+        m_MethodName: cadastrarRMNpcs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
