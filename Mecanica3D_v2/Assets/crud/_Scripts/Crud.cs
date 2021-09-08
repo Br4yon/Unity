@@ -24,6 +24,7 @@ public class Crud : MonoBehaviour
             string id = PlayerPrefs.GetString("id["+i+"]");
             string nome = PlayerPrefs.GetString("nome["+i+"]");
 
+
             if(nome != ""){
                 number++;
                 GameObject tmp_item = Instantiate(item,itemParent.transform);

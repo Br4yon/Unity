@@ -7,6 +7,7 @@ public class CrudRelacionaNPC : MonoBehaviour
 {
     public GameObject [] itemParent;
     public GameObject item, form;
+    public string[] conjuntoRelacionalNPCs;
 
     void Start(){
         consultarNpcs();        
@@ -36,6 +37,8 @@ public class CrudRelacionaNPC : MonoBehaviour
 
     /** CADASTRAR RELACIONAMENTO E EMOÇÕES DOS NPCS **/
     public void cadastrarRMNpcs(){
+        
+        string testeconsulta = "";
 
         /** form=ModalRelacionamento/child(2)=Relacionamento/child(1)=NPCaRelacionar/Viewport/Content **/
         Transform npcArelacionar = form.transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0);
@@ -45,108 +48,77 @@ public class CrudRelacionaNPC : MonoBehaviour
         int countNPCparaRelacionar = npcPARArelacionar.childCount;
 
         /** INSTANCIA QUE GUARDA AS EMOÇÕES **/
-        Transform vEmocoes = form.transform.GetChild(3);
+        Transform formVEmocoes = form.transform.GetChild(3);
 
-        // ClassEmocao vetorEmocao = new ClassEmocao();
-        // /** ADICIONA OS VALORES NA CLASS **/
+        ClassEmocao vetorEmocao = new ClassEmocao();
+        /** ADICIONA OS VALORES NA CLASS **/
         // vetorEmocao.raiva = 10;
         // vetorEmocao.alegria = 10;
-        // /** ESCREVE COMO STRING A CLASS JÁ EM JSON **/
+        /** ESCREVE COMO STRING A CLASS JÁ EM JSON **/
         // string teste = vetorEmocao.SetJsonEmocoes();
-        // // Debug.Log( teste );    
-        // /** PARA DESCONVERTER É REESCRITO UMA NOVA VARIAVEL DA CLASS COM A STRING DO JSON **/
+        // Debug.Log( teste );    
+        /** PARA DESCONVERTER É REESCRITO UMA NOVA VARIAVEL DA CLASS COM A STRING DO JSON **/
         // ClassEmocao tE = new ClassEmocao();  
         // JsonUtility.FromJsonOverwrite(teste, tE); 
-        // // Debug.Log( tE.raiva );
+        // Debug.Log( tE.raiva );
 
         /** PERCORRER OS NPCS A RELACIONAR **/
         for (int i = 0; i < countNPCaRelacionar; i++)
         {
+            /** (DONO DA EMOÇÃO) NOME DO NPC QUE VAI RECEBER O JSON DE EMOÇÕES COM RELAÇÃO AO OUTRO NPC **/
+            string nomeNPC = npcArelacionar.GetChild(i).name;
+
             /** VERIFICA SE O NPC DA VEZ ESTA MARCADO **/
             if(npcArelacionar.GetChild(i).GetComponent<Toggle>().isOn == true)
             {
 
-                /** PEGA O NOME DO NPCaRELACIONAR **/
-                Debug.Log(npcArelacionar.GetChild(i).name);
+                /** CONTA QUANTAS RELAÇÕES ESSE NPC TEM **/
+                int ContRelacionaNPC = PlayerPrefs.GetInt(nomeNPC);
+                ContRelacionaNPC++;
 
                 for (int j = 0; j < countNPCparaRelacionar; j++)
                 {
-
                     /** VERIFICA SE O NPC DA VEZ ESTA MARCADO **/
                     if(npcPARArelacionar.GetChild(j).GetComponent<Toggle>().isOn == true)
                     {
+                        /** NOME DO NPC RELACIONADO **/
+                        string nomeNPCrelacionado = npcPARArelacionar.GetChild(j).name;
 
-                        /** PEGA O NOME DO NPCparaRELACIONAR **/
-                        Debug.Log(npcPARArelacionar.GetChild(j).name);
-                        
-                        // for(int k=0; k < 6; k++)
-                        // {
+                        /** ESCREVE NA VARIAVEL O NOME  DO NPC QUE TEM RELAÇÃO COM ELE **/
+                        PlayerPrefs.SetString(nomeNPC+"["+ContRelacionaNPC+"]", nomeNPCrelacionado);
 
-                        //     vEmocoes.GetChild(0).GetChild(k)
+                        /** MONTA O JSON DAS EMOCOES **/
+                        vetorEmocao.raiva     = int.Parse(formVEmocoes.GetChild(0).GetChild(0).GetChild(1).GetComponent<InputField>().text);
+                        vetorEmocao.medo      = int.Parse(formVEmocoes.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text);
+                        vetorEmocao.tristeza  = int.Parse(formVEmocoes.GetChild(0).GetChild(1).GetChild(1).GetComponent<InputField>().text);
+                        vetorEmocao.alegria   = int.Parse(formVEmocoes.GetChild(1).GetChild(1).GetChild(1).GetComponent<InputField>().text);
+                        vetorEmocao.nojo      = int.Parse(formVEmocoes.GetChild(0).GetChild(2).GetChild(1).GetComponent<InputField>().text);
+                        vetorEmocao.confianca = int.Parse(formVEmocoes.GetChild(1).GetChild(2).GetChild(1).GetComponent<InputField>().text);
+                        /** FIM JSON DAS EMOCOES **/
 
-                        // }
+                        string jSon = vetorEmocao.SetJsonEmocoes();
+
+                        /** GUARDA O JSON DE EMOÇÕES **/
+                        PlayerPrefs.SetString(nomeNPC+nomeNPCrelacionado+"["+ContRelacionaNPC+"]", jSon );
+                        testeconsulta = nomeNPC+nomeNPCrelacionado+"["+ContRelacionaNPC+"]";
 
                     }
 
                 }
 
+                /** GUARDA QUANTAS RELAÇÕES O NPC TEM **/
+                PlayerPrefs.SetInt(nomeNPC, ContRelacionaNPC);
             }          
 
         }
 
+        Debug.Log("PlayerPrefs.GetString("+testeconsulta+")");
+        Debug.Log(PlayerPrefs.GetString(testeconsulta));
 
-
-
-
-
-
-
-
-
-
+        /** PARA DESCONVERTER É REESCRITO UMA NOVA VARIAVEL DA CLASS COM A STRING DO JSON **/
+        // ClassEmocao tE = new ClassEmocao();  
+        // JsonUtility.FromJsonOverwrite(teste, tE);
 
     }
-
-
-
-
-    // public void delete(GameObject item){
-    //     string id_perf = item.name;
-    //     PlayerPrefs.DeleteKey ("id["+id_perf+"]");
-    //     PlayerPrefs.DeleteKey ("nome["+id_perf+"]");
-    //     int count = PlayerPrefs.GetInt("c_relacionamento_emocao");
-    //     PlayerPrefs.SetInt("c_relacionamento_emocao", count -1 );
-    //     // PlayerPrefs.DeleteKey("contador");
-
-    //     // Destroy(GameObject.Find(item.name));
-    //     // PlayerPrefs.DeleteKey ("vemocao["+id_perf+"]");
-    //     read();
-    // }
-
-    // public void create(){
-    //     int count = PlayerPrefs.GetInt("c_relacionamento_emocao");
-    //     count++;
-
-    //     /** GRAVA O NOME DO NPC **/
-    //     string nome = form.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text;
-    //     form.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text= "";
-    //     PlayerPrefs.SetString("nome["+count+"]", nome);
-
-
-    //     // // primeiro child é a emoção - segundo a input(padrão (1))
-    //     // string vetorEmocional = g_VetorEmocional.transform.GetChild(0).GetChild(1).GetComponent<InputField>().text;
-    //     // g_VetorEmocional.transform.GetChild(0).GetChild(1).GetComponent<InputField>().text= "";
-
-    //     // for (int i = 1; i < 6; i++)
-    //     // {
-    //     //     vetorEmocional += ", "+ g_VetorEmocional.transform.GetChild(i).GetChild(1).GetComponent<InputField>().text;
-    //     //     g_VetorEmocional.transform.GetChild(i).GetChild(1).GetComponent<InputField>().text= "";
-    //     // }
-
-    //     // PlayerPrefs.SetString("vemocao["+count+"]", vetorEmocional);
-
-    //     PlayerPrefs.SetInt("c_relacionamento_emocao", count);
-    //     read();
-    // }
 
 }

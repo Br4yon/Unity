@@ -4856,6 +4856,7 @@ MonoBehaviour:
   - {fileID: 80418779}
   item: {fileID: 78300791}
   form: {fileID: 1927651823}
+  conjuntoRelacionalNPCs: []
 --- !u!1 &430739973
 GameObject:
   m_ObjectHideFlags: 0

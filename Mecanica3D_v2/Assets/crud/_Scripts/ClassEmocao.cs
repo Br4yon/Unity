@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ClassEmocao : MonoBehaviour
-{
+public class ClassEmocao{
 
-    public int raiva, medo, tristeza, alegria, nojo, confiancao;
+    public int raiva, medo, tristeza, alegria, nojo, confianca;
     
     void Start()
     {
@@ -36,10 +35,10 @@ public class ClassEmocao : MonoBehaviour
         }else
             nojo = 0;
         
-        if(confiancao > 0 && confiancao <= 100){
-            confiancao = confiancao;
+        if(confianca > 0 && confianca <= 100){
+            confianca = confianca;
         }else
-            confiancao = 0;
+            confianca = 0;
         
     }
 
